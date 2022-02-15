@@ -10,7 +10,7 @@ env:
   # this actions generate only this year
   # If you fork this please change the type to yours below
   TYPE: "leetcode, github, duolingo" # support strava/gpx/ns/cichang/shanbay/duolingo/issue/leetcode/twitter/github/gitlab/kindle/bilibili/wakatime/dota2/forest, Please change the 'pass' it to your own separated by commas
-  ME: deanwong
+  ME: Dean
   GITHUB_NAME: deanwong
   GITHUB_EMAIL: wangding85@gmail.com
 
@@ -81,7 +81,7 @@ jobs:
       - name: Run sync leetcode script
         if: contains(env.TYPE, 'leetcode')
         run: |
-          python -m github_poster leetcode --leetcode_cookie  "${{ secrets.LEETCODE_COOKIE }}" --me ${{ env.ME }} --year 2021-2022 --cn
+          python -m github_poster leetcode --leetcode_cookie  "${{ secrets.LEETCODE_COOKIE }}" --me ${{ env.ME }} --cn
 
       - name: Run sync twitter script
         if: contains(env.TYPE, 'twitter')
@@ -129,9 +129,9 @@ jobs:
         run: |
           python3 -m github_poster multiple --types "github, twitter" --github_user_name ${{ secrets.G_USER_NAME }} --twitter_user_name ${{ secrets.TWITTER_USER_NAME }} --year 2019-2021
 
-      - name: Mv svg files to examples
+      - name: Move files to static
         # only for me to show
-        run: ls -a OUT_FOLDER
+        run: mv OUT_FOLDER/*.svg static/ && mv OUT_FOLDER/*.stl static/
 
       - name: Push new svg posters
         uses: github-actions-x/commit@v2.8
