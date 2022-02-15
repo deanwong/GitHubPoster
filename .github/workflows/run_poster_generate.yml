@@ -131,14 +131,14 @@ jobs:
 
       - name: Move files to static
         # only for me to show
-        run: mv OUT_FOLDER/*.svg static/ && mv OUT_FOLDER/*.stl static/
+        run: mv OUT_FOLDER/*.svg static/
 
       - name: Push new svg posters
         uses: github-actions-x/commit@v2.8
         with:
           github-token: ${{ secrets.G_T }}
           commit-message: "Make new poster"
-          files: examples OUT_FOLDER
+          files: static
           rebase: "true"
           name: ${{ env.GITHUB_NAME }}
           email: ${{ env.GITHUB_EMAIL }}
