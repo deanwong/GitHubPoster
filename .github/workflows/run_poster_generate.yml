@@ -9,7 +9,7 @@ env:
   # please change to your own config.
   # this actions generate only this year
   # If you fork this please change the type to yours below
-  TYPE: "multiple" # support strava/gpx/ns/cichang/shanbay/duolingo/issue/leetcode/twitter/github/gitlab/kindle/bilibili/wakatime/dota2/forest, Please change the 'pass' it to your own separated by commas
+  TYPE: "duolingo, leetcode, github" # support strava/gpx/ns/cichang/shanbay/duolingo/issue/leetcode/twitter/github/gitlab/kindle/bilibili/wakatime/dota2/forest, Please change the 'pass' it to your own separated by commas
   ME: Dean
   GITHUB_NAME: deanwong
   GITHUB_EMAIL: wangding85@gmail.com
@@ -61,7 +61,7 @@ jobs:
       - name: Run sync duolingo script
         if: contains(env.TYPE, 'duolingo')
         run: |
-          python -m github_poster duolingo --duolingo_user_name ${{ secrets.DUOLINGO_USER_NAME }} --duolingo_password ${{ secrets.DUOLINGO_PASSWORD }} --me ${{ env.ME }}
+          python -m github_poster duolingo --duolingo_user_name ${{ secrets.DUOLINGO_USER_NAME }} --duolingo_password ${{ secrets.DUOLINGO_PASSWORD }} --me ${{ env.ME }} --year 2021-2022
 
       - name: Run sync cichang script
         if: contains(env.TYPE, 'cichang')
@@ -81,7 +81,7 @@ jobs:
       - name: Run sync leetcode script
         if: contains(env.TYPE, 'leetcode')
         run: |
-          python -m github_poster leetcode --leetcode_cookie  "${{ secrets.LEETCODE_COOKIE }}" --me ${{ env.ME }} --cn
+          python -m github_poster leetcode --leetcode_cookie  "${{ secrets.LEETCODE_COOKIE }}" --me ${{ env.ME }} --cn --year 2021-2022
 
       - name: Run sync twitter script
         if: contains(env.TYPE, 'twitter')
@@ -91,7 +91,7 @@ jobs:
       - name: Run sync github script
         if: contains(env.TYPE, 'github')
         run: |
-          python -m github_poster github --github_user_name ${{ secrets.G_USER_NAME }} --me ${{ env.ME }}
+          python -m github_poster github --github_user_name ${{ secrets.G_USER_NAME }} --me ${{ env.ME }}  --year 2021-2022
 
       - name: Run sync gitlab script
         if: contains(env.TYPE, 'gitlab')
@@ -128,6 +128,11 @@ jobs:
         if: contains(env.TYPE, 'multiple')
         run: |
           python3 -m github_poster multiple --types "duolingo, leetcode" --duolingo_user_name ${{ secrets.DUOLINGO_USER_NAME }} --duolingo_password ${{ secrets.DUOLINGO_PASSWORD }}  --leetcode_cookie  "${{ secrets.LEETCODE_COOKIE }}" --cn --me ${{ env.ME }} --year 2021-2022
+
+      - name: Run sync summary script
+        if: contains(env.TYPE, 'summary')
+        run: |
+          python3 -m github_poster summary --types "duolingo, leetcode" --duolingo_user_name ${{ secrets.DUOLINGO_USER_NAME }} --duolingo_password ${{ secrets.DUOLINGO_PASSWORD }}  --leetcode_cookie  "${{ secrets.LEETCODE_COOKIE }}" --cn --me ${{ env.ME }} --year 2022
 
       - name: Move files to static
         # only for me to show
