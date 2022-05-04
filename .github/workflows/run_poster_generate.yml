@@ -19,8 +19,6 @@ jobs:
     name: Sync
     runs-on: ubuntu-latest
     steps:
-      - name: work around permission issue
-        run: git config --global --add safe.directory /__w/GitHubPoster/GitHubPoster
       - name: Checkout
         uses: actions/checkout@v2 
       - name: Set up Python
@@ -139,6 +137,9 @@ jobs:
       - name: Move files to static
         # only for me to show
         run: mv OUT_FOLDER/*.svg static/
+        
+      - name: work around permission issue
+        run: git config --global --add safe.directory /__w/GitHubPoster/GitHubPoster
 
       - name: Push new svg posters
         uses: github-actions-x/commit@v2.8
