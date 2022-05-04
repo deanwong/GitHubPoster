@@ -19,10 +19,10 @@ jobs:
     name: Sync
     runs-on: ubuntu-latest
     steps:
+      - name: work around permission issue
+        run: git config --global --add safe.directory /__w/GitHubPoster/GitHubPoster
       - name: Checkout
         uses: actions/checkout@v2 
-      - name: permission issue
-        run: sudo git config --global --add safe.directory deanwong/GitHubPoster
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
